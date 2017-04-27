@@ -1,0 +1,16 @@
+<h1>Users Index</h1>
+<table>
+	<thead>
+		<th>Field</th>
+		<th>Actions</th>
+	</thead>
+	<tr ng-repeat='user in user_index'>
+		<td>{{user.field}}</td>
+		<td>
+			<a href='#!/users/show/{{user._id}}'>Show</a>
+			<a href='#!/users/edit/{{user._id}}'>Edit</a>
+			<a href='#' ng-click='user_delete(user._id)'>Delete</a>
+		</td>
+	</tr>
+</table>
+<button ng-click='print()'>Show All</button>
