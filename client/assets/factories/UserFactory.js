@@ -6,13 +6,14 @@ app.factory('UserFactory',['$http',function($http) {
 	factory.login = function(user) {
 		console.log('fac: login')
 		user.action = 'login'
-		$http.post('/users',user).then(function(returned) {
-			if (returned.status == 200) {
-				console.log(returned)
-			} else {
-				console.log(returned)
-			}
-		})
+		return $http.post('/users',user)
+		// .then(function(returned) {
+		// 	if (returned.status == 200) {
+		// 		return returned.data
+		// 	} else {
+		// 		console.log('fac:',returned)
+		// 	}
+		// })
 	}
 
 	factory.register = function(new_user) {
@@ -23,7 +24,7 @@ app.factory('UserFactory',['$http',function($http) {
 				if (returned.status == 200) {
 					content.push(returned.data)
 				} else {
-					console.log(returned)
+					console.log('fac:',returned)
 				}
 			})
 		}
@@ -75,7 +76,7 @@ app.factory('UserFactory',['$http',function($http) {
 					var index = factory.findex(id)
 					content[index] = returned.data
 				} else {
-					// console.log(returned)
+					// console.log('fac:',returned)
 				}
 			})
 		}
@@ -91,14 +92,14 @@ app.factory('UserFactory',['$http',function($http) {
 					}
 					content.pop()
 				} else {
-					// console.log(returned)
+					// console.log('fac:',returned)
 				}
 			})
 		}
 	}
 
 	factory.print = function() {
-		console.log(content)
+		console.log('fac:',content)
 	}
 
 	return factory

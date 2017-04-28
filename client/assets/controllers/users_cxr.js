@@ -1,4 +1,4 @@
-app.controller('users_cxr',['$scope','$location','$routeParams','UserFactory',function($scope,$location,$routeParams,UserFactory,) {
+app.controller('users_cxr',['$scope','$location','$routeParams','$cookies','UserFactory',function($scope,$location,$routeParams,$cookies,UserFactory,) {
 
 	var id = $routeParams.id
 
@@ -7,13 +7,25 @@ app.controller('users_cxr',['$scope','$location','$routeParams','UserFactory',fu
 
 	$scope.login = function() {
 		console.log('cxr: login')
-		var res = UserFactory.login($scope.user_log)
+		UserFactory.login($scope.user_log).then(function(returned) {
+			var status = returned.data
+			if (status.account) {
+				if (status.correct) {
+					console.log('cxr: password correct')
+				} else {
+					console.log('cxr: password incorrect')
+				}
+			} else {
+				console.log('cxr: no account')				
+			}
+		})
 		$scope.user_log = {}
 	}
 
 	$scope.register = function() {
 		console.log('cxr: register')
 		var res = UserFactory.register($scope.user_reg)
+		console.log('cxr:',res)
 		$location.url('/users')
 		$scope.user_reg = {}
 	}
@@ -40,12 +52,12 @@ app.controller('users_cxr',['$scope','$location','$routeParams','UserFactory',fu
 	// 	$location.url('/users')
 	// }
 
-	// $scope.user_delete = function(id) {
-	// 	UserFactory.delete(id)
-	// }
+	$scope.user_delete = function(id) {
+		UserFactory.delete(id)
+	}
 
 	$scope.print = function() {
-		// console.log($scope.user_index)
+		// console.log('cxr:',$scope.user_index)
 		UserFactory.print( )
 	}
 

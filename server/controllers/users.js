@@ -4,11 +4,36 @@ var users = {}
 
 users.login = function(request, response) {
 	console.log('server: login')
-	console.log(request.body.username)
 	User.find({username: request.body.username},function(error,result) {
-		var user = equip(result)
-		console.log(user)
-		console.log(user.check(request.body.password))
+		var user = result[0]
+		if (user) {
+			user = equip(user)
+			if (user.check(request.body.password)) {
+				console.log('server: password correct')
+				response.json({
+					'account' : true,
+					'correct' : true,
+					'user_id' : user._id,
+					// 'sescode' : 
+				})
+			} else {
+				console.log('server: password incorrect')
+				response.json({
+					'account' : true,
+					'correct' : false,
+					'user_id' : null,
+					// 'sescode' : null
+				})
+			}
+		} else {
+			console.log('server: no account')
+			response.json({
+				'account' : false,
+				'correct' : null,
+				'user_id' : null,
+				// 'sescode' : null
+			})
+		}
 	})
 }
 
@@ -18,14 +43,14 @@ users.register = function(request,response) {
 		username : request.body.username,
 		password : request.body.password,
 	})
-	console.log(request.body)
-	console.log(new_user)
+	// console.log('server:',request.body)
+	// console.log('server:',new_user)
 	if (new_user.password) { // Placeholder validation, keeps bcrypt from crashing the server
 		new_user.save(function(error,result) {
 			if (error) {
-				console.log(500,error)
+				console.log('server:',500,error)
 			} else {
-				console.log(201)
+				console.log('server:',201)
 				response.json(result)
 			}
 		})
@@ -33,9 +58,9 @@ users.register = function(request,response) {
 }
 
 users.index = function(request, response) {
-	console.log('server: index')
+	// console.log('server: index')
 	User.find({},function(error,result) {
-		console.log(error,result)
+		// console.log('server:',error,result)
 		response.json({'users':result})
 	})
 }
@@ -54,9 +79,9 @@ users.update = function(request, response) {
 	var patch = request.body.patch
 	User.update(query,patch,function(error,result) {
 		if (error) {
-			// console.log(500,error)
+			// console.log('server:',500,error)
 		} else {
-			// console.log(201.5)
+			// console.log('server:',201.5)
 			response.json(result)
 		}
 	})
@@ -66,9 +91,9 @@ users.delete = function(request, response) {
 	var id = request.params.id
 	User.remove({'_id':id},function(error,result) {
 		if (error) {
-			// console.log(500,error)
+			// console.log('server:',500,error)
 		} else {
-			// console.log(201.9)
+			// console.log('server:',201.9)
 			response.json(result)
 		}
 	})

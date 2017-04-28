@@ -3,7 +3,7 @@ var users = require('../controllers/users.js')
 module.exports = function(app){
 
 	app.get('/users', function(req, res) {
-		console.log('routes: index')
+		// console.log('routes: index')
 		users.index(req, res);
 	});
 

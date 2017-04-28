@@ -12,8 +12,6 @@
 			<span ng-if='!isbcrypt(user.password)'>{{user.password}}</span>
 		</td>
 		<td>
-			<a href='#!/users/show/{{user._id}}'>Show</a>
-			<a href='#!/users/edit/{{user._id}}'>Edit</a>
 			<a href='#' ng-click='user_delete(user._id)'>Delete</a>
 		</td>
 	</tr>
