@@ -9,6 +9,10 @@ app.config(function($routeProvider) {
 		templateUrl : 'partials/users/new.html',
 		controller  : 'users_cxr'
 	})
+	$routeProvider.when('/users/entrance',{
+		templateUrl : 'partials/users/entrance.html',
+		controller  : 'users_cxr'
+	})
 	$routeProvider.when('/users/show/:id',{
 		templateUrl : 'partials/users/show.html',
 		controller  : 'users_cxr'

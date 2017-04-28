@@ -1,11 +1,16 @@
 <h1>Users Index</h1>
 <table>
 	<thead>
-		<th>Field</th>
+		<th>Username</th>
+		<th>Password</th>
 		<th>Actions</th>
 	</thead>
 	<tr ng-repeat='user in user_index'>
-		<td>{{user.field}}</td>
+		<td>{{user.username}}</td>
+		<td>
+			<span ng-if='isbcrypt(user.password)' title='{{user.password}}'>&#x1f512;</span>
+			<span ng-if='!isbcrypt(user.password)'>{{user.password}}</span>
+		</td>
 		<td>
 			<a href='#!/users/show/{{user._id}}'>Show</a>
 			<a href='#!/users/edit/{{user._id}}'>Edit</a>
