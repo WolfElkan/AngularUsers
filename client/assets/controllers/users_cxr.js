@@ -1,17 +1,16 @@
-app.controller('users_cxr',['$scope','$location','$routeParams','$cookies','UserFactory',function($scope,$location,$routeParams,$cookies,UserFactory,) {
-
-	var id = $routeParams.id
+app.controller('users_cxr',['$scope','$location','$cookies','UserFactory',function($scope,$location,$cookies,UserFactory,) {
 
 	$scope.user_log = {}
-	$scope.user_reg = {}
-
 	$scope.login = function() {
 		console.log('cxr: login')
 		UserFactory.login($scope.user_log).then(function(returned) {
-			var status = returned.data
-			if (status.account) {
-				if (status.correct) {
+			console.log(returned.data)
+			if (returned.data.account) {
+				if (returned.data.success) {
 					console.log('cxr: password correct')
+					$cookies.put('user_id',returned.data.user_id)
+				//	$cookies.put('sescode',returned.data.sescode)
+					$location.url('/home')
 				} else {
 					console.log('cxr: password incorrect')
 				}
@@ -22,10 +21,12 @@ app.controller('users_cxr',['$scope','$location','$routeParams','$cookies','User
 		$scope.user_log = {}
 	}
 
+	$scope.user_reg = {}
 	$scope.register = function() {
 		console.log('cxr: register')
-		var res = UserFactory.register($scope.user_reg)
-		console.log('cxr:',res)
+		UserFactory.register($scope.user_reg).then(function(returned) {
+			console.log('cxr:',returned)
+		})
 		$location.url('/users')
 		$scope.user_reg = {}
 	}
@@ -34,6 +35,13 @@ app.controller('users_cxr',['$scope','$location','$routeParams','$cookies','User
 	UserFactory.load().then(function(returned) {
 		$scope.user_index = returned.data.users
 	})
+
+	$scope.logout = function() {
+		console.log('cxr: logout')
+		$cookies.remove('user_id')
+	//	$cookies.remove('sescode')
+		$location.url('/login')
+	}
 
 	$scope.isbcrypt = function(pw) {
 		var bcrypt = /^\$2[ay]?\$\d{2}\$[./0-9A-Za-z]{53}$/
@@ -58,7 +66,8 @@ app.controller('users_cxr',['$scope','$location','$routeParams','$cookies','User
 
 	$scope.print = function() {
 		// console.log('cxr:',$scope.user_index)
-		UserFactory.print( )
+		// UserFactory.print( )
+		// console.log($routeParams)
 	}
 
 }])

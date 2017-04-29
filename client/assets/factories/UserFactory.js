@@ -20,13 +20,14 @@ app.factory('UserFactory',['$http',function($http) {
 		console.log('fac: register')
 		if (valid(new_user)) {
 			new_user.action = 'register'
-			$http.post('/users',new_user).then(function(returned) {
-				if (returned.status == 200) {
-					content.push(returned.data)
-				} else {
-					console.log('fac:',returned)
-				}
-			})
+			return $http.post('/users',new_user)
+			// .then(function(returned) {
+			// 	if (returned.status == 200) {
+			// 		content.push(returned.data)
+			// 	} else {
+			// 		console.log('fac:',returned)
+			// 	}
+			// })
 		}
 	}
 

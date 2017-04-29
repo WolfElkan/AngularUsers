@@ -12,7 +12,7 @@ var UserSchema = new mongoose.Schema({
 
 UserSchema.pre('save',function(next) {
 	this.password = bcrypt.hashSync(this.password,bcrypt.genSaltSync(8))
-	console.log('schema:',this)
+	// console.log('model :',this)
 	next()
 })
 
@@ -24,9 +24,14 @@ function equip(user) {
 	return user
 }
 
+function valid(user) {
+	return Boolean(user.password)
+}
+
 mongoose.model('users',UserSchema);
 
 module.exports = {
 	'model' : mongoose.model('users'),
 	'equip' : equip,
+	'valid' : valid,
 }

@@ -1,6 +1,9 @@
 var app = angular.module('app', ['ngRoute','ngCookies'])
 
 app.config(function($routeProvider) {
+	$routeProvider.when('/',{
+		controller  : 'security'
+	})
 	$routeProvider.when('/login',{
 		templateUrl : 'partials/users/entrance.html',
 		controller  : 'users_cxr'
@@ -22,6 +25,6 @@ app.config(function($routeProvider) {
 	// 	controller  : 'users_cxr'
 	// })
 	$routeProvider.otherwise({
-		redirectTo: '/login'
+		redirectTo: '/'
 	})
 })
