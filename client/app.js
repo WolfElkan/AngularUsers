@@ -2,6 +2,7 @@ var app = angular.module('app', ['ngRoute','ngCookies'])
 
 app.config(function($routeProvider) {
 	$routeProvider.when('/',{
+		templateUrl : 'partials/security.html',
 		controller  : 'security'
 	})
 	$routeProvider.when('/login',{

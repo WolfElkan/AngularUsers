@@ -1,5 +1,7 @@
 app.controller('users_cxr',['$scope','$location','$cookies','UserFactory',function($scope,$location,$cookies,UserFactory,) {
 
+	console.log('users_cxr')
+
 	$scope.user_log = {}
 	$scope.login = function() {
 		console.log('cxr: login')
@@ -15,7 +17,7 @@ app.controller('users_cxr',['$scope','$location','$cookies','UserFactory',functi
 					console.log('cxr: password incorrect')
 				}
 			} else {
-				console.log('cxr: no account')				
+				console.log('cxr: no account')
 			}
 		})
 		$scope.user_log = {}
