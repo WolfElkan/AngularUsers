@@ -2,7 +2,7 @@
 
 // var SessionSchema = new mongoose.Schema({
 // 	user_id : ObjectId,
-// 	sescode : 
+// 	sescode : Buffer
 // },{	timestamps: { 
 // 		createdAt: 'created_at', 
 // 		updatedAt: 'terminated',

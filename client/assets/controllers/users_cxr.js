@@ -12,7 +12,7 @@ app.controller('users_cxr',['$scope','$location','$cookies','UserFactory',functi
 					console.log('cxr: password correct')
 					$cookies.put('user_id',returned.data.user_id)
 				//	$cookies.put('sescode',returned.data.sescode)
-					$location.url('/home')
+					$location.url('/')
 				} else {
 					console.log('cxr: password incorrect')
 				}
@@ -39,10 +39,11 @@ app.controller('users_cxr',['$scope','$location','$cookies','UserFactory',functi
 	})
 
 	$scope.logout = function() {
-		console.log('cxr: logout')
-		$cookies.remove('user_id')
-	//	$cookies.remove('sescode')
-		$location.url('/login')
+		console.log('cxr: logging out...')
+			$cookies.remove('user_id')
+		//	$cookies.remove('sescode')
+			console.log($cookies.get('user_id'))
+			$location.url('/')
 	}
 
 	$scope.isbcrypt = function(pw) {
