@@ -70,6 +70,7 @@ app.controller('users_cxr',['$scope','$location','$cookies','UserFactory',functi
 		// console.log('cxr:',$scope.user_index)
 		// UserFactory.print( )
 		// console.log($routeParams)
+		console.log($cookies.getAll())
 	}
 
 }])

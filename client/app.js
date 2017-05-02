@@ -1,9 +1,13 @@
 var app = angular.module('app', ['ngRoute','ngCookies'])
 
 app.config(function($routeProvider) {
+	var $cookies;
+	angular.injector(['ngCookies']).invoke(['$cookies', function(_$cookies_) {
+		$cookies = _$cookies_;
+	}])
 	$routeProvider.when('/',{
-		templateUrl : 'partials/security.html',
-		controller  : 'security'
+		templateUrl : $cookies.get('user_id') ? 'partials/home.html' : 'partials/users/entrance.html',
+		controller  : 'users_cxr'
 	})
 	$routeProvider.when('/login',{
 		templateUrl : 'partials/users/entrance.html',
@@ -29,3 +33,8 @@ app.config(function($routeProvider) {
 		redirectTo: '/'
 	})
 })
+
+// myApp.config(function() {
+
+//   // here you can use $cookies as usual
+// });
